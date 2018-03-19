@@ -1,5 +1,7 @@
 download:   [https://arxiv.org/pdf/1803.03004.pdf]
+
 title:  Learning Effective Binary Visual Representations with Deep Networks
+
 authors:    Jianxin Wu and Jian-Hao Luo,  Nanjing University
 
 ## Summary
