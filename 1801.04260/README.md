@@ -1,5 +1,7 @@
 download:   [https://arxiv.org/pdf/1801.04260.pdf]
+
 title:  Conditional Probability Models for Deep Image Compression
+
 authors:   Fabian Mentzer∗ Eirikur Agustsson∗  Michael Tschannen Radu Timofte Luc Van Gool   ETH Zurich, Switzerland
 
 
@@ -101,3 +103,4 @@ raster scan order 将z^这个三维feature volume转变为了一维。
 [![9HqtC8.png](https://s1.ax1x.com/2018/03/22/9HqtC8.png)](https://imgchr.com/i/9HqtC8)
 
 yij并不是(0,1)，然后m还要ceil(m)
+z <- z .* ceil(m)， 
