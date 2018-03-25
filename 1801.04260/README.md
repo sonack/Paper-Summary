@@ -103,4 +103,20 @@ raster scan order 将z^这个三维feature volume转变为了一维。
 [![9HqtC8.png](https://s1.ax1x.com/2018/03/22/9HqtC8.png)](https://imgchr.com/i/9HqtC8)
 
 yij并不是(0,1)，然后m还要ceil(m)
-z <- z .* ceil(m)， 
+z <- z .* ceil(m)
+
+
+我们可以通过z^来恢复[m]，只要数一下z^[i,j,:]中的顶部有多少个连续的0即可（可能会over-estimate, but no matter），因此[m]就是masked z^的一个函数，即条件熵H([m]|z^)=0，
+即有下面关系成立：
+
+![9b8nJA.png](https://s1.ax1x.com/2018/03/23/9b8nJA.png)
+[条件熵和联合熵的关系，你哈记得吗？]
+
+如果我们认为H([m])为常数，则可以间接通过优化H(z|m)来优化H(z).
+
+因为[m]为0的地方，z肯定也为0，所以它的熵为0.剩下的，可以同样利用context model P(i,l)(z^)建模：
+
+![9b8azq.png](https://s1.ax1x.com/2018/03/23/9b8azq.png)
+
+类似于coding cost, 我们把期望内的式子叫做"masked coding cost of z^".
+
