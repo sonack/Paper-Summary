@@ -172,9 +172,19 @@ auto-encoder:
 
 ![_2018-04-14_14-19-46.png](https://a.photo/images/2018/04/14/_2018-04-14_14-19-46.png)
 
+* 深灰色块代表residual blocks
+* 上半部分是encoder E, 下半部分是decoder D
+* 名字的含义: 对于E, k5n64-2代表一个conv层,其kernel size是5, output channel是64, stride是2; 对于D, 它代表对应的deconv层
+* 所有的卷积层都使用了BN层, SAME padding
+* Masked quantization在3.2中有所描述
+* Normalize将输入normalize到[0,1],使用training set的一个子集中计算获得的mean和variance, Denormalize是相反操作.
+
 context model P:
 简单的4层3D-CNN
 ![_2018-04-14_14-21-26.png](https://a.photo/images/2018/04/14/_2018-04-14_14-21-26.png)
+
+* 3Dk3n24代表一个3D masked conv层,其filter size是3,24个output channels
+* 最后一层对于z\^中的每个voxel输出L个值
 
 **Distortion measure**
 
@@ -213,3 +223,90 @@ ILSVRC12
 JPEG: libjpeg
 JPEG2000: Kakadu implementation
 BPG: which is based on HEVC，先进的视频编码 Better Portable Graphics
+
+**Comparison**
+
+[12] O. Rippel and L. Bourdev. Real-time adaptive image compression.
+
+**Results**
+
+
+Kodak
+
+![018eb29791783de8a1f8a7426351c763.png](https://a.photo/images/2018/04/14/018eb29791783de8a1f8a7426351c763.png)
+
+注意到，R&B和Johnston也是直接maximize (MS-)SSIM,而其它方法都是minimize MSE.
+
+
+**Ablation Study**
+
+Context model:
+
+验证context model的效果，做了如下实验:
+
+训练了一个没有entropy loss的auto-encoder，即β=0, 使用了L=6个centers和K=16个channels.
+在Kodak数据集上，该模型的avg ms-ssim是0.982, avg bpp是0.646(每个symbol假设需要log2(L)=2.59bits),然后我们固定该auto-encoder，然后训练了3个不同的context model:
+1. 一个zeroth order的context model,其使用了直方图来估计L中每个符号的概率;
+2. 一个first order(one-step prediction) context model,其使用了一个条件直方图来估计符号的概率(给定前一个符号的条件下);
+3. P
+
+可以发现,P可以减少rate 10%左右.
+
+[![05a86c4544dcf32421a51d12f169e23f.png](https://a.photo/images/2018/04/14/05a86c4544dcf32421a51d12f169e23f.png)](https://a.photo/image/hQDU)
+
+
+Importance map
+
+
+## 5. Discussion
+
+## 6. Conclusion
+
+
+In this paper, we proposed the first method for learning
+a lossy image compression auto-encoder concurrently with
+a lightweight context model by incorporating it into an entropy
+loss for the optimization of the auto-encoder, leading
+to performance competitive with the current state-of-the-art
+in deep image compression [12].
+
+未来工作可能探索更heavy-更powerful的context models,它可以进一步提升压缩性能，并且允许对自然图像以"有损"方式来抽样：即先根据context model 来sample一个z\^,再解码。
+
+
+# Supplementary Materials
+
+## 3D Probability Classifier
+
+masked 3D convolutions to enforce the causality constraint.
+
+在2D CNN中，标准的2D卷积用在filter banks
+
+
+
+
+![QQ20180414212244.png](https://a.photo/images/2018/04/14/QQ20180414212244.png)
+
+如左图所示, 一个WxHxC_in维度的tensor被映射到一个W'xH'xC_out维度的tensor，使用C_out个banks of C_in 2D filters, 也就是filters可以被表示为fw x fh x C_in x C_out维度的tensors,注意到C_in个channels全部都被使用,这就违反了causality:当我们encode时,我们是逐个逐个通道来处理的.
+
+使用3D卷积, 另一个维度--深度D被引入.一个WxHxDxC_in维度的tensor被映射到一个W'xH'xD'xC_out维度的tensor, filters可以表示为fw x fh x fd x C_in x C_out维度的tensor.(可以看出,深度也是滑动的,depth和width和height没有什么区别,都是data本身的维度).
+对于P,我们采用的3D-CNN,输入是W x H x K维度的feature map z\^, 对于第一层,深度D采用全部深度K,C_in=1(因为只有1个3D image channel).
+
+
+![QQ20180414213514.png](https://a.photo/images/2018/04/14/QQ20180414213514.png)
+
+How we mask the filters in P?
+
+简化而使用c x c context around z\^.
+对于第一层和后续层的mask有所细微差别,第一层不能直接利用待编码符号,后续层可以利用该位置(因为它包含了最近的一圈的信息),即第一层是<,后续层是<=.
+
+![QQ20180414215002.png](https://a.photo/images/2018/04/14/QQ20180414215002.png)
+
+We can use P to
+encode z\ˆ by iterating over z\ˆ in such blocks, exhausting first
+axis w, then axis h, and finally axis d (like in Algorithm 1).
+
+
+## Visual Examples
+
+BPG倾向于高频信息做的更好(due to its more local approach),我们的方法有点Over-Blurring. 另一方面, BPG倾向于丢弃low-contrast high frequencies而我们的方法倾向于保留它.这可能是因为BPG是用MSE优化,而我们的方法使用MS-SSIM优化.
+
