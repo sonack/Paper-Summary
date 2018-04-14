@@ -4,7 +4,9 @@ title:  Conditional Probability Models for Deep Image Compression
 
 authors:   Fabian Mentzer∗ Eirikur Agustsson∗  Michael Tschannen Radu Timofte Luc Van Gool   ETH Zurich, Switzerland
 
+
 [TOC]
+
 
 ## Abstract
 
