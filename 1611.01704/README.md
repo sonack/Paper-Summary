@@ -64,3 +64,65 @@ analysis transform g_a 包含 3个stages of convolution, subsampling and divisiv
 
 ## 3. Optimization of non-linear transform coding model
 
+![_2018-04-17_11-00-52.png](https://a.photo/images/2018/04/17/_2018-04-17_11-00-52.png)
+
+
+quantization bin size is always one
+and the representing values are the centers of bins
+![_2018-04-17_11-01-44.png](https://a.photo/images/2018/04/17/_2018-04-17_11-01-44.png)
+
+![_2018-04-17_11-04-50.png](https://a.photo/images/2018/04/17/_2018-04-17_11-04-50.png)
+
+marginal density: 边缘密度
+
+
+Replace the quantizer with an additive i.i.d uniform noise source △y, 它的width和quantization bins的宽度一样(1)。y~ = y + △y 的概率分布函数就是概率质量函数(质量和密度的区别在于离散/连续随机变量)q的一个连续的松弛形式. 在整数点，两者一样.
+
+![_2018-04-17_11-08-29.png](https://a.photo/images/2018/04/17/_2018-04-17_11-08-29.png)
+
+
+box-car filter?
+
+![_2018-04-17_11-20-32.png](https://a.photo/images/2018/04/17/_2018-04-17_11-20-32.png)
+
+其中φ是analysis的参数, Θ是synthesis的参数, 向量Ψ_i参数化了这个piecewise linear approximation of Pyi~, trained jointly with Θ and φ.
+
+### 3.1 Relationship to variational generative image models
+
+隐含变量 y
+观测变量 x
+我们有若干观测 P(x|y)， 希望寻找后验 P(y|x), 可以用 Bayesian variational inference 方法， 用另一个概率分布 q(y|x) 来逼近 P(y|x), 通过最小化KL距离:
+
+![_2018-04-17_11-32-09.png](https://a.photo/images/2018/04/17/_2018-04-17_11-32-09.png)
+
+(const 是关于x的概率， 因为x是确定观测的， 所以概率是常数)
+
+这等价于我们松弛的rate-distortion optimization problem, distortion measure as MSE, 如果我们定义generative model如下:
+
+![_2018-04-17_11-35-36.png](https://a.photo/images/2018/04/17/_2018-04-17_11-35-36.png)
+
+Θ就是synthesis的参数,λ是trade-off.
+给定y~， x是由y~决定的分布产生的.
+
+y~是由Ψ控制的.
+
+近似的后验如下:
+
+![_2018-04-17_11-41-20.png](https://a.photo/images/2018/04/17/_2018-04-17_11-41-20.png)
+
+U(yi~; yi, 1) 就是中心在yi的,长度为1的均匀概率分布.
+
+这样的话，KL divergence中的第一项就是constant(因为是均匀分布), 第二项就意味着distortion, 第三项意味着rate.
+
+
+## 4. Experimental Results
+
+perturbation
+
+
+## 5. Discussion
+
+...
+
+
+
