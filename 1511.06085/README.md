@@ -158,13 +158,16 @@ deconv operator is defined as the transpose of the conv operator.
 
 ## 4. Experiments & Analysis
 
+[TODO]
+
 ### 4.1 Training
 ### 4.2 Evaluation protocol and metrics
 ### 4.3 32x32 benchmark
 ### 4.4 Analysis
 
 ## 5. Conclusion & Future work
-...
+
+[TODO]
 
 
 
