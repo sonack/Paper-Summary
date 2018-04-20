@@ -143,7 +143,7 @@ adaptive codelength regularization: ACR调整量化后的y\^分布以便达到�
 特例:
 
 B=1 : ie binary quantization  ie. round
-B=2 : [2*x]/2 0~0.5, 0.5~1   more precise, more smoother
+B=2 : [2*x]/2 0\~0.5, 0.5\~1   more precise, more smoother
 
 We quantize with B = 6
 ...
