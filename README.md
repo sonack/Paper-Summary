@@ -7,7 +7,7 @@ A Summary and notes about the papers I have read.
 
 * [1611.01704 End-to-end Optimized Image Compression](https://github.com/sonack/Paper-Summary/blob/master/1611.01704/README.md)
 
-* [1705.05823 Real-Time Adaptive Image Compression](https://github.com/sonack/Paper-Summary/blob/master/1705.05823/README.md)\*
+* [1705.05823 Real-Time Adaptive Image Compression (WaveOne,ICML)](https://github.com/sonack/Paper-Summary/blob/master/1705.05823/README.md)
 
 * [1709.08855 Learning to Inpaint for Image Compression](https://github.com/sonack/Paper-Summary/blob/master/1709.08855/README.md)
 
