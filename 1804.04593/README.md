@@ -65,3 +65,55 @@ define the penalty ψ(T) to be a weighted Horn and Schunk regularizer
 
 ## 4. Algorithm
 
+![CMVBv9.png](https://s1.ax1x.com/2018/04/21/CMVBv9.png)
+
+x是压缩后的图像
+y是输入图像
+
+本质上,就是找到一个geometric deformation T, 使得T{y}和x的l2 loss比x和y的l2 loss要更小.
+
+为了求解,我们交替固定住T,然后求解x使得目标函数最小, 再反过来交替进行.
+
+**x-step**
+当T固定时, ψ(T)可以忽略,所以objective可以简化为
+
+![CMV4vd.png](https://s1.ax1x.com/2018/04/21/CMV4vd.png)
+
+这就是原来的rate-distortion problem, 只不过是压缩deformed image T{y} 而不是 input image y.
+
+**T-step**
+当x固定时, R(x)是常数,因此objective归约为:
+
+![CMVX8g.png](https://s1.ax1x.com/2018/04/21/CMVX8g.png)
+
+这是一个optical flow problem, 来决定how to best warp the input image y onto the compressed image x.
+
+这里使用iteratively re-weighted least-squares (IRLS) algorithm proposed by 
+*C. Liu. Beyond pixels: exploring new representations and applications for motion analysis. PhD thesis, 2009. 5*
+
+为了防止算法陷入坏的局部最小值,我们开始用一个大的ε bit budget,然后逐渐减少它直到到达想要的budget,这避免了以下的情况:
+假设在某个阶段, compression (x-step)移除了图像中的某些结构, 即它在T{y}中有而在x中没有, 这样的话, 在计算光流(T-step)时,就无法决定如何形变该结构以使得鼓励压缩去保留它在下一轮迭代.
+
+我们的逐步过程克服了这个问题,通过允许deformation逐渐适应小结构,在这些小结构消失之前.
+
+确实,如果有gradual scheme, 算法最终收敛的DASSD数值大约比没有gradual scheme低10%.
+
+注意到,在初期迭代时,小的DASSD值是因为使用了大的bit rate, 而随着bit rate的减少,DASSD值会增加(但是最终比没有gradual process在最终bit rate时可以到达一个更低的位置).
+
+![CMZtsA.png](https://s1.ax1x.com/2018/04/21/CMZtsA.png)
+
+**Constructing the regularization weight map**
+
+由于人眼对于物体的outlines非常敏感,因此我们构建weight map w如下:
+
+![CMZcss.png](https://s1.ax1x.com/2018/04/21/CMZcss.png)
+
+其中E是通过对输入图像y应用edge detector获得的edge map, G是一个高斯滤波器,  σ=10, '*'代表卷积. α是一个控制不同的regularization的strength的参数.
+
+global regularization (constant w)
+spatially varying regularization
+
+## 5. Experiments
+
+...
+
