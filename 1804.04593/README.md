@@ -79,7 +79,7 @@ y是输入图像
 
 ![CMV4vd.png](https://s1.ax1x.com/2018/04/21/CMV4vd.png)
 
-这就是原来的rate-distortion problem, 只不过是压缩deformed image T{y} 而不是 input image y.
+这就是原来的rate-distortion problem, 只不过是压缩deformed image T{y}而不是 input image y.
 
 **T-step**
 当x固定时, R(x)是常数,因此objective归约为:
@@ -115,5 +115,35 @@ spatially varying regularization
 
 ## 5. Experiments
 
-...
+Tested with JPEG, JP2, WebP, BPG, the deep-net based CODEC of [32], Subband Thresholding and Global Thresholding on images from Berkeley segmentation dataset[17], the Kodak dataset and the Web.
+
+**Gradual process**: keep the compression ratio fixed for the first 10 iterations, then increase it every 5 iters for the next 25 iters, and then increased it every single iter until reaching the desired rate.
+
+For JPEG we used α = 20, for JPEG 2000 and Global and Subband thresholding we used α = 3, and for WebP, BPG and Deep Coding we used α = 6. For all compression methods we used λ = 65 (for color images with 8 bits per pixel per channel).
+
+
+**Running time of our algorithm**: T = K x (T_codec + T_flow)
+
+K 是迭代次数
+
+
+**User Study**
+
+Wilson Test with confidence level of 95%, This supports the conclusion that the average percentage of preference to our method is well above 50%, with very high confidence.
+
+
+
+![CMw1xJ.png](https://s1.ax1x.com/2018/04/22/CMw1xJ.png)
+
+
+As can be seen, well above 75% of the subjects preferred our deformation aware version for more than 50% of the images.
+
+## 6. Conclusions
+
+我们的criterion的优点是两方面:
+
+1. 容易集成到已有的压缩系统中
+2. 如果想在我们的criterion上取得好的指标, encoder需要不能把太多的bits投资到描述fine structures的确切的几何形状上.
+
+
 

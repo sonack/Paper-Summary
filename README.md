@@ -17,6 +17,8 @@ A Summary and notes about the papers I have read.
 
 * [1803.03004 Learning Effective Binary Visual Representations with Deep Networks (Wu Jianxin)](https://github.com/sonack/Paper-Summary/blob/master/1803.03004/README.md)
 
+* [1804.04593 Deformation Aware Image Compression](https://github.com/sonack/Paper-Summary/blob/master/1804.04593/README.md)
+
 * [Towards_Image_Understanding_from_Deep_Compression_without_Decoding](https://github.com/sonack/Paper-Summary/blob/master/Towards_Image_Understanding_from_Deep_Compression_without_Decoding/README.md)
 
 * [TrimmedCNN (Li Mu)](https://github.com/sonack/Paper-Summary/blob/master/TrimmedCNN/README.md)
