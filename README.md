@@ -27,5 +27,5 @@ A Summary and notes about the papers I have read.
 
 * [TrimmedCNN (Li Mu)](https://github.com/sonack/Paper-Summary/blob/master/TrimmedCNN/README.md)
 
-
+* [1804.06919 Video Compression through Image Interpolation](https://github.com/sonack/Paper-Summary/blob/master/1804.06919/README.md)
 
