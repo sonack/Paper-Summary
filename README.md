@@ -3,6 +3,9 @@ A Summary and notes about the papers I have read.
 
 ## Index
 
+---
+Deep Image Compression Relevant Papers:
+
 * [1511.06085 Variable Rate Image Compression with Recurrent Neural Networks](https://github.com/sonack/Paper-Summary/blob/master/1511.06085/README.md)
 
 * [1611.01704 End-to-end Optimized Image Compression](https://github.com/sonack/Paper-Summary/blob/master/1611.01704/README.md)
@@ -27,5 +30,20 @@ A Summary and notes about the papers I have read.
 
 * [TrimmedCNN (Li Mu)](https://github.com/sonack/Paper-Summary/blob/master/TrimmedCNN/README.md)
 
-* [1804.06919 Video Compression through Image Interpolation](https://github.com/sonack/Paper-Summary/blob/master/1804.06919/README.md)
+* [1804.06919 Video Compression through Image Interpolation\*](https://github.com/sonack/Paper-Summary/blob/master/1804.06919/README.md)
+
+--- 
+
+Object Detection Relevant Papers:
+
+Two-stage:
+
+R-CNN series:
+
+* [1311.2524 Rich feature hierarchies for accurate object detection and semantic segmentation [R-CNN]](https://github.com/sonack/Paper-Summary/blob/master/1311.2524/README.md)
+
+* [1406.4729 Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition [SPPNet]](https://github.com/sonack/Paper-Summary/blob/master/1406.4729/README.md)
+
+* [1504.08083 Fast R-CNN](https://github.com/sonack/Paper-Summary/blob/master/1504.08083/README.md)
+
 
