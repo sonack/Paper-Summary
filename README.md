@@ -46,4 +46,11 @@ R-CNN series:
 
 * [1504.08083 Fast R-CNN](https://github.com/sonack/Paper-Summary/blob/master/1504.08083/README.md)
 
+* [1506.01497 Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks](https://github.com/sonack/Paper-Summary/blob/master/1506.01497/README.md)
 
+One-stage:
+
+YOLO series:
+* [1506.02640 You Only Look Once: Unified, Real-Time Object Detection [v1]](https://github.com/sonack/Paper-Summary/blob/master/1506.02640/README.md)
+
+* [1612.08242 YOLO9000: Better, Faster, Stronger [v2]](https://github.com/sonack/Paper-Summary/blob/master/1612.08242/README.md)
